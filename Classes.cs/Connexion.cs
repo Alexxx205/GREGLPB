@@ -19,7 +19,7 @@ namespace Classes.cs
         /// <returns></returns>
         public static NpgsqlConnection Connect(string adresse, string userId, string password, string name)
         {
-            NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";User Id" + userId + ";" + "Password=" + password + ";Database" + name + ";");
+            NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
             return conn;
         }
     }
