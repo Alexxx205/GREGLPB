@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace Classes.cs
 {
-    class Connexion
+    public class Connexion
     {
         /// <summary>
         /// Constructeur de la classe Connexion qui permet la connexion à la BDD
@@ -21,6 +21,11 @@ namespace Classes.cs
         {
             NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
             return conn;
+        }
+
+        public Connexion()
+        {
+
         }
     }
 }

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Net;
+using Npgsql;
+using Classes.cs;
 
 namespace formTest
 {
@@ -51,7 +53,7 @@ namespace formTest
             
 
         }
-
+        
         private void btnExec_Click(object sender, EventArgs e)
         {
             //Verification du format de l'adresse ip du serveur
@@ -77,6 +79,33 @@ namespace formTest
             }
             else
                 txtAdrMail.BackColor = Color.FromArgb(214, 255, 215);
+
+            //Mettre les informations de connexion
+            string adresse = ip;
+            string name = txtNomBdd.Text;
+            string userId = "";
+            string password = "";
+
+            NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+
+            //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
+            Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
+
+            List<Entreprise> listEntreprises = import.GetLesEntreprises();
+            foreach (Entreprise ent in listEntreprises)
+            {
+                ent.verifCode();
+                ent.verifRaisonSoc();
+                ent.verifAdresse();
+                ent.verifCP();
+                ent.verifVille();
+                ent.verifTel();
+                ent.verifFax();
+                ent.verifEmail();
+            }
+
+            
+
         }
     }
 }
