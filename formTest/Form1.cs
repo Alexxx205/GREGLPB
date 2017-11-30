@@ -123,7 +123,7 @@ namespace formTest
 
                     //Insertion dans la base de données 
                     //string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('"+ent.GetCode()+"','"+ent.GetRaison() + "','"+ent.GetAdresse() + "','" + ent.GetCP() + "','" + ent.GetVille() + "','" + ent.GetTel() + "','" + ent.GetFax() + "','" + ent.GetEmail() + "','" + ent.GetActif() + "','" + ent.GetReglement() +"');";
-                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque');";
+                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat, company_id, create_date, color, display_name, supplier, is_company, customer, write_date, active, write_uid, lang, type, commercial_partner_id, notify_email, debit_limit) VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque');";
                     dbcmd.CommandText = req;
                     dbcmd.ExecuteNonQuery();
                 
