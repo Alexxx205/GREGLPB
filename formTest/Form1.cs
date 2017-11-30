@@ -18,6 +18,9 @@ namespace formTest
 {
     public partial class Form1 : Form
     {
+        NpgsqlConnection conn;
+        NpgsqlCommand dbcmd;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace formTest
             //Valeurs par défaut des champs
             txtAdrServ.Text = "127.0.0.1";
             txtNomBdd.Text = "Gedimat";
+            txtAdrMail.Text = "adrex@mail.fr";
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -85,7 +89,30 @@ namespace formTest
             else
                 txtAdrMail.BackColor = Color.FromArgb(214, 255, 215);
 
-            
+            //Overture de la connexion a la BDD
+
+            //Informations de connexion
+            string adresse = ip;
+            string name = txtNomBdd.Text;
+            string userId = "openpg";
+            string password = "openpgpwd";
+
+            // Connexion à la base de données
+            try
+            {
+                conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+                dbcmd = conn.CreateCommand();
+            }
+            catch(NpgsqlException)
+            {
+                MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
             //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
             Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
 
@@ -103,32 +130,10 @@ namespace formTest
                 ent.verifCode();
 
                 //Insertion dans la base de données
-                try
-                {
-                    //Mettre les informations de connexion
-                    string adresse = ip;
-                    string name = txtNomBdd.Text;
-                    string userId = "openpg";
-                    string password = "openpgpwd";
-
-                    // Connexion à la base de données
-                    NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
-
-                    NpgsqlCommand dbcmd = conn.CreateCommand();
-
-                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ("+ent.GetCode()+","+ent.GetRaison() + ","+ent.GetAdresse() + "," + ent.GetCP() + "," + ent.GetVille() + "," + ent.GetTel() + "," + ent.GetFax() + "," + ent.GetEmail() + "," + ent.GetActif() + "," + ent.GetReglement() +");";
-                    dbcmd.CommandText = req;
-                    dbcmd.ExecuteNonQuery();
-                }
-                catch(NpgsqlException)
-                {
-                    MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
+                string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ("+ent.GetCode()+","+ent.GetRaison() + ","+ent.GetAdresse() + "," + ent.GetCP() + "," + ent.GetVille() + "," + ent.GetTel() + "," + ent.GetFax() + "," + ent.GetEmail() + "," + ent.GetActif() + "," + ent.GetReglement() +");";
+                dbcmd.CommandText = req;
+                dbcmd.ExecuteNonQuery();
+                
             }
 
             foreach (Erreur err in import.GetLesErreurs())
