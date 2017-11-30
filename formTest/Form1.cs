@@ -67,7 +67,7 @@ namespace formTest
         {
             //Verification du format de l'adresse ip du serveur
             string ip = txtAdrServ.Text;
-            IPAddress adrIp;
+            /*IPAddress adrIp;
             bool ok = IPAddress.TryParse(ip, out adrIp);
             if (ok)
                 txtAdrServ.BackColor = Color.FromArgb(214, 255, 215);
@@ -76,7 +76,7 @@ namespace formTest
                 txtAdrServ.BackColor = Color.FromArgb(255, 196, 196);
                 MessageBox.Show("Adresse IP du serveur non valide !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            */
 
             //Verification du format de l'adresse email
             Regex regexem = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // pour l'email
@@ -100,12 +100,14 @@ namespace formTest
             // Connexion à la base de données
             try
             {
-                conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+                conn = new NpgsqlConnection("Server= localhost ;port=5432;User Id=openpg;password=opengpwd ;Database=Gedimat;");
+                //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
             }
-            catch(NpgsqlException)
+            catch(NpgsqlException ex)
             {
-                MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( ex.Message,"Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch(Exception ex)
             {
