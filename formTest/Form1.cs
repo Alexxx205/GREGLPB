@@ -129,7 +129,7 @@ namespace formTest
 
             foreach (Erreur err in import.GetLesErreurs())
             {
-                StreamWriter writer = new StreamWriter("F:\\Test.txt"); //Chemin ou on enregistre le fichier txt
+                StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
                 //Ecriture du document texte contenant les erreurs
                 writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
                 writer.WriteLine(err.ToString());
@@ -138,7 +138,7 @@ namespace formTest
 
 
             //Envoi du mail
-            Attachment pj = new Attachment("F:\\Test.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir l.132)
+            Attachment pj = new Attachment("Test.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir l.132)
             import.EnvoieMail(pj);
 
             
