@@ -26,7 +26,7 @@ namespace formTest
             InitializeComponent();
 
             //Valeurs par défaut des champs
-            txtAdrServ.Text = "127.0.0.1";
+            txtAdrServ.Text = "localhost";
             txtNomBdd.Text = "Gedimat";
             txtAdrMail.Text = "adrex@mail.fr";
         }
@@ -67,7 +67,7 @@ namespace formTest
         {
             //Verification du format de l'adresse ip du serveur
             string ip = txtAdrServ.Text;
-            /*IPAddress adrIp;
+            IPAddress adrIp;
             bool ok = IPAddress.TryParse(ip, out adrIp);
             if (ok)
                 txtAdrServ.BackColor = Color.FromArgb(214, 255, 215);
@@ -76,7 +76,7 @@ namespace formTest
                 txtAdrServ.BackColor = Color.FromArgb(255, 196, 196);
                 MessageBox.Show("Adresse IP du serveur non valide !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            */
+
 
             //Verification du format de l'adresse email
             Regex regexem = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // pour l'email
@@ -100,42 +100,62 @@ namespace formTest
             // Connexion à la base de données
             try
             {
-                conn = new NpgsqlConnection("Server= localhost ;port=5432;User Id=openpg;password=opengpwd ;Database=Gedimat;");
-                //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+                conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
-            
-                //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
-                Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
-
-                List<Entreprise> listEntreprises = import.GetLesEntreprises();
-                foreach (Entreprise ent in listEntreprises)
-                {
-                    //On effectue les vérifications des champs avant leur insertion dans la base de données
-                    ent.verifRaisonSoc();
-                    ent.verifAdresse();
-                    ent.verifCP();
-                    ent.verifVille();
-                    ent.verifTel();
-                    ent.verifFax();
-                    ent.verifEmail();
-                    ent.verifCode();
-
-                    //Insertion dans la base de données
-                    //string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('"+ent.GetCode()+"','"+ent.GetRaison() + "','"+ent.GetAdresse() + "','" + ent.GetCP() + "','" + ent.GetVille() + "','" + ent.GetTel() + "','" + ent.GetFax() + "','" + ent.GetEmail() + "','" + ent.GetActif() + "','" + ent.GetReglement() +"');";
-                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque');";
-                    dbcmd.CommandText = req;
-                    dbcmd.ExecuteNonQuery();
-                
-                }
             }
-            catch (NpgsqlException ex)
+            catch(NpgsqlException)
             {
-                //MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+
+            //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
+            Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
+
+            List<Entreprise> listEntreprises = import.GetLesEntreprises();
+            foreach (Entreprise ent in listEntreprises)
+            {
+                //On effectue les vérifications des champs avant leur insertion dans la base de données
+                ent.verifRaisonSoc();
+                ent.verifAdresse();
+                ent.verifCP();
+                ent.verifVille();
+                ent.verifTel();
+                ent.verifFax();
+                ent.verifEmail();
+                ent.verifCode();
+
+                //Insertion dans la base de données
+                try
+                {
+                    //Mettre les informations de connexion
+                    string adresse = ip;
+                    string name = txtNomBdd.Text;
+                    string userId = "openpg";
+                    string password = "openpgpwd";
+
+                    // Connexion à la base de données
+                    NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+
+                    NpgsqlCommand dbcmd = conn.CreateCommand();
+
+                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ("+ent.GetCode()+","+ent.GetRaison() + ","+ent.GetAdresse() + "," + ent.GetCP() + "," + ent.GetVille() + "," + ent.GetTel() + "," + ent.GetFax() + "," + ent.GetEmail() + "," + ent.GetActif() + "," + ent.GetReglement() +");";
+                    dbcmd.CommandText = req;
+                    dbcmd.ExecuteNonQuery();
+                }
+                catch(NpgsqlException)
+                {
+                    MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
             }
 
             foreach (Erreur err in import.GetLesErreurs())
