@@ -103,39 +103,39 @@ namespace formTest
                 conn = new NpgsqlConnection("Server= localhost ;port=5432;User Id=openpg;password=opengpwd ;Database=Gedimat;");
                 //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
+            
+                //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
+                Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
+
+                List<Entreprise> listEntreprises = import.GetLesEntreprises();
+                foreach (Entreprise ent in listEntreprises)
+                {
+                    //On effectue les vérifications des champs avant leur insertion dans la base de données
+                    ent.verifRaisonSoc();
+                    ent.verifAdresse();
+                    ent.verifCP();
+                    ent.verifVille();
+                    ent.verifTel();
+                    ent.verifFax();
+                    ent.verifEmail();
+                    ent.verifCode();
+
+                    //Insertion dans la base de données
+                    //string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('"+ent.GetCode()+"','"+ent.GetRaison() + "','"+ent.GetAdresse() + "','" + ent.GetCP() + "','" + ent.GetVille() + "','" + ent.GetTel() + "','" + ent.GetFax() + "','" + ent.GetEmail() + "','" + ent.GetActif() + "','" + ent.GetReglement() +"');";
+                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque');";
+                    dbcmd.CommandText = req;
+                    dbcmd.ExecuteNonQuery();
+                
+                }
             }
-            catch(NpgsqlException ex)
+            catch (NpgsqlException ex)
             {
                 //MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show( ex.Message,"Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-
-
-            //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
-            Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
-
-            List<Entreprise> listEntreprises = import.GetLesEntreprises();
-            foreach (Entreprise ent in listEntreprises)
-            {
-                //On effectue les vérifications des champs avant leur insertion dans la base de données
-                ent.verifRaisonSoc();
-                ent.verifAdresse();
-                ent.verifCP();
-                ent.verifVille();
-                ent.verifTel();
-                ent.verifFax();
-                ent.verifEmail();
-                ent.verifCode();
-
-                //Insertion dans la base de données
-                string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ("+ent.GetCode()+","+ent.GetRaison() + ","+ent.GetAdresse() + "," + ent.GetCP() + "," + ent.GetVille() + "," + ent.GetTel() + "," + ent.GetFax() + "," + ent.GetEmail() + "," + ent.GetActif() + "," + ent.GetReglement() +");";
-                dbcmd.CommandText = req;
-                dbcmd.ExecuteNonQuery();
-                
             }
 
             foreach (Erreur err in import.GetLesErreurs())
