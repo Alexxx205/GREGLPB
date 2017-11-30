@@ -20,7 +20,7 @@ namespace formTest
     {
         NpgsqlConnection conn;
         NpgsqlCommand dbcmd;
-
+        Importation import;
         public Form1()
         {
             InitializeComponent();
@@ -100,12 +100,13 @@ namespace formTest
             // Connexion à la base de données
             try
             {
-                conn = new NpgsqlConnection("Server= localhost ;port=5432;User Id=openpg;password=opengpwd ;Database=Gedimat;");
+                conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Gedimat;");
+                conn.Open();
                 //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
-            
+
                 //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
-                Importation import = new Importation(DateTime.Now, txtFichierSource.Text);
+                import = new Importation(DateTime.Now, txtFichierSource.Text);
 
                 List<Entreprise> listEntreprises = import.GetLesEntreprises();
                 foreach (Entreprise ent in listEntreprises)
