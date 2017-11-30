@@ -23,7 +23,7 @@ namespace formTest
             InitializeComponent();
 
             //Valeurs par défaut des champs
-            txtAdrServ.Text = "localhost";
+            txtAdrServ.Text = "127.0.0.1";
             txtNomBdd.Text = "Gedimat";
         }
 
@@ -123,6 +123,10 @@ namespace formTest
                 catch(NpgsqlException)
                 {
                     MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
 
             }
