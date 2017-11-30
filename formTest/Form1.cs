@@ -23,7 +23,7 @@ namespace formTest
             InitializeComponent();
 
             //Valeurs par défaut des champs
-            txtAdrServ.Text = "127.0.0.1";
+            txtAdrServ.Text = "localhost";
             txtNomBdd.Text = "Gedimat";
         }
 
@@ -112,7 +112,7 @@ namespace formTest
                     string password = "openpgpwd";
 
                     // Connexion à la base de données
-                    NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";port=5432;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+                    NpgsqlConnection conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
 
                     NpgsqlCommand dbcmd = conn.CreateCommand();
 
