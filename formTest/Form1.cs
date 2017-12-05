@@ -129,7 +129,7 @@ namespace formTest
                         "'1', "+DateTime.Now+ ", '0', 'ABC', 'false', 'true', 'true', '" + DateTime.Now + "', 'true', '1', 'fr_FR', 'contact', '2', 'always');";
 
                 //MessageBox.Show(ent.GetCode() + " " + ent.GetRaison() + " " + ent.GetAdresse() + " " + ent.GetCP() + " " + ent.GetVille() + " " + ent.GetTel() + " " + ent.GetFax() + " " + ent.GetEmail() + " " + ent.GetActif() + " " + ent.GetReglement()); //debug/test
-                MessageBox.Show(ent.GetReglement());
+                //MessageBox.Show(ent.GetReglement()); //Testing
                     string t = "INSERT INTO public.res_partner(name, company_id, comment, function, create_date, color, company_type, date, street, city, display_name, zip, title, country_id, parent_id, supplier, ref, email, is_company, website, customer, fax, street2, barcode, employee, credit_limit, write_date, active, tz, write_uid, lang, create_uid, phone, mobile, type, use_parent_address, user_id, birthdate, vat, state_id, commercial_partner_id, notify_email, message_last_post, opt_out, signup_type, signup_expiration, signup_token, last_time_entries_checked, debit_limit, team_id) VALUES('"+ent.GetRaison()+"', 1, null, null, '"+DateTime.Now.ToString()+"', 0, 'company', null, '"+ent.GetAdresse()+"', '"+ent.GetVille()+"', '"+ent.GetRaison()+"', '"+ent.GetCP()+"', null, null, null, false, '"+ent.GetCode()+"', '"+ent.GetEmail()+"', true, null, true, '"+ent.GetFax()+"', null, null, false, null, '"+DateTime.Now.ToString()+"', true, null, 1, 'fr_FR', 1, '"+ent.GetTel()+"', null, false, false, null, null, '"+ent.GetReglement()+"', null, null, 'always', null, false, null, null, null, null, 0.0, null);";
                     //richTxtResultat.Text = t;
                     dbcmd.CommandText = t;
@@ -146,14 +146,14 @@ namespace formTest
                 MessageBox.Show(ex.Message);
             }*/
 
+            StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
+            //Ecriture du document texte contenant les erreurs
+            writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
             foreach (Erreur err in import.GetLesErreurs())
             {
-                StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
-                //Ecriture du document texte contenant les erreurs
-                writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
                 writer.WriteLine(err.ToString());
-                writer.Close();
             }
+            writer.Close();
 
 
             //Envoi du mail
