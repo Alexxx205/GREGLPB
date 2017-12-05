@@ -87,21 +87,27 @@ namespace Classes.cs
         /// <param name="unePJ">Piece jointe de l'e-mail : fichier texte contenant les erreurs</param>
         public void EnvoieMail(Attachment unePJ)
         {
-            MailMessage mail = new MailMessage("test21101997@gmail.com", "test20051998@gmail.com");
-            SmtpClient client = new SmtpClient();
 
-            //A modifier
-            client.Port = 25;
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Host = "smtp.google.com";
+            client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997");
 
-            mail.Subject = "Test Gedimat";
-            mail.Body = "this is my test email body";
+            MailMessage mm = new MailMessage("test21101997@gmail.com", "test20051998@gmail.com");
+            mm.Subject = "Gedimat";
+            mm.Body = "Message bonjour ! :)";
+            Attachment attachment = unePJ;
+            mm.Attachments.Add(attachment);
 
-            Attachment fichier = unePJ;
-            mail.Attachments.Add(fichier);
-            client.Send(mail);
+
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            client.Send(mm);
         }
 
         public List<Entreprise> GetLesEntreprises()
