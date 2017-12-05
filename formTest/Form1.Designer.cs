@@ -39,7 +39,7 @@
             this.btnExec = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTxtResultat = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -151,9 +151,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.richTextBox1);
+            this.groupBox1.Controls.Add(this.richTxtResultat);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(15, 407);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(499, 132);
@@ -161,14 +160,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resultat import";
             // 
-            // richTextBox1
+            // richTxtResultat
             // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(10, 54);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(470, 68);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
+            this.richTxtResultat.Enabled = false;
+            this.richTxtResultat.Location = new System.Drawing.Point(10, 54);
+            this.richTxtResultat.Name = "richTxtResultat";
+            this.richTxtResultat.Size = new System.Drawing.Size(470, 68);
+            this.richTxtResultat.TabIndex = 12;
+            this.richTxtResultat.Text = "";
             // 
             // groupBox2
             // 
@@ -288,7 +287,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTxtResultat;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtAdrMail;
         private System.Windows.Forms.TextBox textBox2;

@@ -27,7 +27,7 @@ namespace formTest
 
             //Valeurs par défaut des champs
             txtAdrServ.Text = "127.0.0.1";
-            txtNomBdd.Text = "Gedimat";
+            txtNomBdd.Text = "Test";
             txtAdrMail.Text = "adrex@mail.fr";
         }
 
@@ -98,9 +98,9 @@ namespace formTest
             string password = "openpgpwd";
 
             // Connexion à la base de données
-            try
-            {
-                conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Gedimat;");
+            /*try
+            {*/
+                conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Test;");
                 conn.Open();
                 //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
@@ -123,12 +123,19 @@ namespace formTest
 
                     //Insertion dans la base de données 
                     //string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('"+ent.GetCode()+"','"+ent.GetRaison() + "','"+ent.GetAdresse() + "','" + ent.GetCP() + "','" + ent.GetVille() + "','" + ent.GetTel() + "','" + ent.GetFax() + "','" + ent.GetEmail() + "','" + ent.GetActif() + "','" + ent.GetReglement() +"');";
-                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat, company_id, create_date, color, display_name, supplier, is_company, customer, write_date, active, write_uid, lang, type, commercial_partner_id, notify_email, debit_limit) VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque');";
-                    dbcmd.CommandText = req;
+                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat,"+
+                        " company_id, create_date, color, display_name, supplier, is_company, customer, write_date, active, write_uid, lang, type, commercial_partner_id, notify_email) "+
+                        "VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque'"+
+                        "'1', "+DateTime.Now+ ", '0', 'ABC', 'false', 'true', 'true', '" + DateTime.Now + "', 'true', '1', 'fr_FR', 'contact', '2', 'always');";
+
+                //MessageBox.Show(ent.GetCode() + " " + ent.GetRaison() + " " + ent.GetAdresse() + " " + ent.GetCP() + " " + ent.GetVille() + " " + ent.GetTel() + " " + ent.GetFax() + " " + ent.GetEmail() + " " + ent.GetActif() + " " + ent.GetReglement()); //debug/test
+                MessageBox.Show(ent.GetReglement());
+                    string t = "INSERT INTO public.res_partner(name, company_id, comment, function, create_date, color, company_type, date, street, city, display_name, zip, title, country_id, parent_id, supplier, ref, email, is_company, website, customer, fax, street2, barcode, employee, credit_limit, write_date, active, tz, write_uid, lang, create_uid, phone, mobile, type, use_parent_address, user_id, birthdate, vat, state_id, commercial_partner_id, notify_email, message_last_post, opt_out, signup_type, signup_expiration, signup_token, last_time_entries_checked, debit_limit, team_id) VALUES('"+ent.GetRaison()+"', 1, null, null, '"+DateTime.Now.ToString()+"', 0, 'company', null, '"+ent.GetAdresse()+"', '"+ent.GetVille()+"', '"+ent.GetRaison()+"', '"+ent.GetCP()+"', null, null, null, false, '"+ent.GetCode()+"', '"+ent.GetEmail()+"', true, null, true, '"+ent.GetFax()+"', null, null, false, null, '"+DateTime.Now.ToString()+"', true, null, 1, 'fr_FR', 1, '"+ent.GetTel()+"', null, false, false, null, null, '"+ent.GetReglement()+"', null, null, 'always', null, false, null, null, null, null, 0.0, null);";
+                    //richTxtResultat.Text = t;
+                    dbcmd.CommandText = t;
                     dbcmd.ExecuteNonQuery();
-                
                 }
-            }
+            /*}
             catch (NpgsqlException ex)
             {
                 //MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -137,7 +144,7 @@ namespace formTest
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }*/
 
             foreach (Erreur err in import.GetLesErreurs())
             {

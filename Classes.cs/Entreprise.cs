@@ -45,7 +45,7 @@ namespace Classes.cs
             this.fax = unFax;
             this.eMail = unMail;
             this.actif = unActif;
-            this.reglement = unReglement;
+            this.reglement = unReglement.Replace("'", "");
             this.lImportation = uneImportation;
         }
 
@@ -58,7 +58,7 @@ namespace Classes.cs
             Match regexMail = regex.Match(this.eMail); // verifie que le mail rentre dans les critères
             if (!regexMail.Success)
             {
-                this.eMail = "";
+                this.eMail = "mailnonok@mail.fr";
                 this.lImportation.AjouterErreur(9, "Adresse e-mail incorrecte", this.code, "e-mail", 
                     "L'adresse e-mail ne correspond pas au format exemple@ex.fr/com... Veuillez insérer une adresse e-mail valide.");
             }
@@ -88,7 +88,7 @@ namespace Classes.cs
             Match match = regex.Match(this.fax); // verifie que le fax rentre dans les critères
             if (!match.Success)
             {
-                this.fax = "";
+                this.fax = "0000000000";
                 this.lImportation.AjouterErreur(8, "Fax non valide", this.code, "Fax", 
                     "Le fax de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de fax valide.");
             }
@@ -103,7 +103,7 @@ namespace Classes.cs
             Match match = regex.Match(this.tel); // verifie que le tel rentre dans les critères
             if (!match.Success)
             {
-                this.tel = "";
+                this.tel = "0000000000";
                 lImportation.AjouterErreur(7, "Numero de téléphone non valide", this.code, "Téléphone",
                      "Le numéro de téléphone de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de téléphone valide.");
             }
@@ -119,7 +119,7 @@ namespace Classes.cs
             Match match = regex.Match(this.cp); // verifie que le CP rentre dans les critères
             if (!match.Success)
             {
-                this.cp = "";
+                this.cp = "00000";
                 this.lImportation.AjouterErreur(5, "Raison sociale non valide", this.code, "raison sociale",
                                 "Le code postal de l'entreprise ne correspond pas au format (5 chiffres). Veuillez insérer un code postal valide.");
             }
@@ -162,7 +162,7 @@ namespace Classes.cs
             //verification : la raison sociale ne doit pas comporter plus de 3 mêmes lettres consécutives
             if (!repetitionLettres(this.raisonSociale))
             {
-                this.raisonSociale = "";
+                this.raisonSociale = "raisonsocnonok";
                 this.lImportation.AjouterErreur(2, "Raison sociale non valide", this.code, "raison sociale",
                             "La raison sociale de l'entreprise contient une succession de plus de 3 mêmes caractères. Veuillez insérer une raison sociale valide.");
             }
@@ -174,7 +174,7 @@ namespace Classes.cs
                 Match regexCode = regex.Match(this.raisonSociale); // verifie que le code rentre dans les critères
                 if (!regexCode.Success)
                 {
-                    this.raisonSociale = "";
+                    this.raisonSociale = "rsnonok";
                     this.lImportation.AjouterErreur(3, "Raison sociale non valide", this.code, "raison sociale",
                         "La raison sociale de l'entreprise est non conforme au format demandé. Veuillez insérer une raison sociale valide.");
                 }
@@ -187,7 +187,7 @@ namespace Classes.cs
             Match regexAdr = regex.Match(this.adresse); // verifie que le code rentre dans les critères
             if (!regexAdr.Success)
             {
-                this.adresse = "";
+                this.adresse = "adresse";
                 this.lImportation.AjouterErreur(4, "Adresse incorrecte", this.adresse, "adresse", 
                     "L'adresse de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une adresse valide.");
             }
@@ -199,7 +199,7 @@ namespace Classes.cs
             Match regexVille = regex.Match(this.ville); // verifie que le code rentre dans les critères
             if (!regexVille.Success)
             {
-                this.ville = "";
+                this.ville = "ville";
                 this.lImportation.AjouterErreur(6, "Ville incorrecte", this.ville, "ville",
                     "La ville de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une ville valide.");
             }
