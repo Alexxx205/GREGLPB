@@ -70,12 +70,24 @@ namespace Classes.cs
 
         }
 
+        /// <summary>
+        /// Methode qui permet d'ajouter une erreur a la liste lesErreurs
+        /// </summary>
+        /// <param name="unCode">Numero de l'erreur déclenchée</param>
+        /// <param name="unNom">Nom de l'erreur</param>
+        /// <param name="unCodeLigne">Code de la ligne de l'entreprise concernée</param>
+        /// <param name="unChamp">Champ depuis lequel l'erreur provient</param>
+        /// <param name="uneDesc">Description de l'erreur, informations</param>
         public void AjouterErreur(int unCode, string unNom, string unCodeLigne, string unChamp, string uneDesc)
         {
             Erreur e = new Erreur(unCode, unNom, unCodeLigne, unChamp, uneDesc);
             lesErreurs.Add(e);
         }
 
+        /// <summary>
+        /// Methode qui permet d'ajouter une erreur a la liste lesErreurs
+        /// </summary>
+        /// <param name="uneErreur">Objet erreur</param>
         public void AjouterErreur(Erreur uneErreur)
         {
             lesErreurs.Add(uneErreur);
