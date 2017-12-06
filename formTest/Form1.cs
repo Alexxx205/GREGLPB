@@ -80,7 +80,6 @@ namespace formTest
             if (!File.Exists(txtFichierSource.Text))
             {
                 MessageBox.Show("Fichier introuvable.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtFichierSource.BackColor = Color.FromArgb(214, 255, 215);
                 verifChampsSaisis = false;
             }
 
@@ -90,20 +89,25 @@ namespace formTest
             bool ok = IPAddress.TryParse(ip, out adrIp);
             if (!ok)
             {
-                txtAdrServ.BackColor = Color.FromArgb(255, 196, 196);
+                txtAdrServ.BackColor = Color.FromArgb(255, 196, 196); //couleur rouge
                 MessageBox.Show("Adresse IP du serveur non valide !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 verifChampsSaisis = false;
             }
             else
             {
-                txtAdrServ.BackColor = Color.FromArgb(214, 255, 215);
+                txtAdrServ.BackColor = Color.FromArgb(214, 255, 215); //couleur verte
             }
 
             //Verification du port du serveur (doit etre composé de chiffres uniquement)
             Regex r = new Regex("^[0-9]*$");
             Match regPortServ = r.Match(txtPortServ.Text);
             if (!regPortServ.Success)
+            {
+                txtPortServ.BackColor = Color.FromArgb(255, 196, 196); //couleur rouge
                 verifChampsSaisis = false;
+            }
+            else
+                txtPortServ.BackColor = Color.FromArgb(214, 255, 215); //couleur verte
 
             //Verification du format de l'adresse email
             Regex regexem = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // pour l'email
@@ -111,7 +115,7 @@ namespace formTest
             if (!regexMail.Success)
             {
                 MessageBox.Show("Adresse mail non valide.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtAdrMail.BackColor = Color.FromArgb(255, 196, 196);
+                txtAdrMail.BackColor = Color.FromArgb(255, 196, 196); //couleur rouge
                 verifChampsSaisis = false;
             }
             else
@@ -205,7 +209,7 @@ namespace formTest
                     }
                     writer.Close();
                     //Feedback utilisateur
-                    richTxtResultat.Text += "Document généré\n";
+                    richTxtResultat.Text += "Document généré !\n";
                     #endregion
 
                     #region Envoie du mail contenant le rapport d'erreur
@@ -213,6 +217,9 @@ namespace formTest
                     //Envoi du mail
                     Attachment pj = new Attachment("Erreurs.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir StreamWriter ci-dessus : variable writer)
                     import.EnvoieMail(txtAdrMail.Text, pj);//Appel de la methode permettant l'envoie du mail : on renseigne l'adresse mail de destination en paramètre (qui correspond au champ txtAdrMail)
+
+                    //Feedback utilisateur
+                    richTxtResultat.Text += "Rapport d'erreur envoyé par mail !\n";
 
                     #endregion
                 }
