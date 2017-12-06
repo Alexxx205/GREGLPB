@@ -32,6 +32,8 @@ namespace formTest
             txtPortServ.Text = "5432";
             txtIdBdd.Text = "openpg";
             txtMdpBdd.Text = "openpgpwd";
+
+            richTxtResultat.Text = ""; //On initialise a vide pour pouvoir utiliser += par la suite
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -68,114 +70,161 @@ namespace formTest
         
         private void btnExec_Click(object sender, EventArgs e)
         {
+            //--------------------------------------------------------
+            // Verifications des champs remplis par l'utilisateur
+            //--------------------------------------------------------
+            #region Verification des champs saisis par l'utilisateur
+
+            bool verifChampsSaisis = true;
+            //Verif que le fichier source existe
+            if (!File.Exists(txtFichierSource.Text))
+            {
+                MessageBox.Show("Fichier introuvable.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtFichierSource.BackColor = Color.FromArgb(214, 255, 215);
+                verifChampsSaisis = false;
+            }
+
             //Verification du format de l'adresse ip du serveur
             string ip = txtAdrServ.Text;
-            /*IPAddress adrIp;
+            IPAddress adrIp;
             bool ok = IPAddress.TryParse(ip, out adrIp);
-            if (ok)
-                txtAdrServ.BackColor = Color.FromArgb(214, 255, 215);
-            else
+            if (!ok)
             {
                 txtAdrServ.BackColor = Color.FromArgb(255, 196, 196);
                 MessageBox.Show("Adresse IP du serveur non valide !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                verifChampsSaisis = false;
             }
-            */
+            else
+            {
+                txtAdrServ.BackColor = Color.FromArgb(214, 255, 215);
+            }
+
+            //Verification du port du serveur (doit etre composé de chiffres uniquement)
+            Regex r = new Regex("^[0-9]*$");
+            Match regPortServ = r.Match(txtPortServ.Text);
+            if (!regPortServ.Success)
+                verifChampsSaisis = false;
 
             //Verification du format de l'adresse email
             Regex regexem = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // pour l'email
             Match regexMail = regexem.Match(txtAdrMail.Text); // verifie que le mail rentre dans les critères
             if (!regexMail.Success)
             {
-                MessageBox.Show("Adresse mail non valide !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Adresse mail non valide.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtAdrMail.BackColor = Color.FromArgb(255, 196, 196);
+                verifChampsSaisis = false;
             }
             else
                 txtAdrMail.BackColor = Color.FromArgb(214, 255, 215);
 
-            //Overture de la connexion a la BDD
+            #endregion
 
-            //Informations de connexion
-            string adresse = ip; //on prend l'adresse ip qu'on vient de vérifier
-            string name = txtNomBdd.Text;
-            string port = txtPortServ.Text;
-            string userId = txtIdBdd.Text;
-            string password = txtMdpBdd.Text;
 
-            // Connexion à la base de données
-            /*try
-            {*/
-            //Connexion lors des tests
-            //conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Test;");
+            //--------------------------------------------------------
+            // Envoie des informations dans la BDD
+            //--------------------------------------------------------
+            if (verifChampsSaisis)
+            {
+                #region Connexion BDD
+                //Overture de la connexion a la BDD
 
-                string chaineConnex = "Server=" + ip + ";port=" + txtPortServ.Text + ";User Id=" + userId + ";password=" + password + ";Database=" + name + ";";
-                conn = new NpgsqlConnection(chaineConnex);
-                conn.Open();
-                //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
-                dbcmd = conn.CreateCommand();
+                //Informations de connexion
+                string adresse = ip; //on prend l'adresse ip qu'on vient de vérifier
+                string name = txtNomBdd.Text;
+                string port = txtPortServ.Text;
+                string userId = txtIdBdd.Text;
+                string password = txtMdpBdd.Text;
 
-                //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
-                import = new Importation(DateTime.Now, txtFichierSource.Text);
-
-                List<Entreprise> listEntreprises = import.GetLesEntreprises();
-                foreach (Entreprise ent in listEntreprises)
+                // Connexion à la base de données
+                try
                 {
-                    //On effectue les vérifications des champs avant leur insertion dans la base de données
-                    ent.verifRaisonSoc();
-                    ent.verifAdresse();
-                    ent.verifCP();
-                    ent.verifVille();
-                    ent.verifTel();
-                    ent.verifFax();
-                    ent.verifEmail();
-                    ent.verifCode();
+                    //Connexion lors des tests
+                    //conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Test;");
 
-                    //Insertion dans la base de données 
-                    //string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat) VALUES ('"+ent.GetCode()+"','"+ent.GetRaison() + "','"+ent.GetAdresse() + "','" + ent.GetCP() + "','" + ent.GetVille() + "','" + ent.GetTel() + "','" + ent.GetFax() + "','" + ent.GetEmail() + "','" + ent.GetActif() + "','" + ent.GetReglement() +"');";
-                    string req = "INSERT INTO res_partner(ref, name, street, state_id, street2, phone, fax, email, type, vat,"+
-                        " company_id, create_date, color, display_name, supplier, is_company, customer, write_date, active, write_uid, lang, type, commercial_partner_id, notify_email) "+
-                        "VALUES ('ABC', 'testEnt', 'adr', '38200', 'Vienne', '0203040506', '2345678901', 'mail@mail.com', 'oui', 'cheque'"+
-                        "'1', "+DateTime.Now+ ", '0', 'ABC', 'false', 'true', 'true', '" + DateTime.Now + "', 'true', '1', 'fr_FR', 'contact', '2', 'always');";
+                    string chaineConnex = "Server=" + ip + ";port=" + txtPortServ.Text + ";User Id=" + userId + ";password=" + password + ";Database=" + name + ";";
+                    conn = new NpgsqlConnection(chaineConnex);
+                    conn.Open();
+                    //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
+                    dbcmd = conn.CreateCommand();
 
-                    //MessageBox.Show(ent.GetCode() + " " + ent.GetRaison() + " " + ent.GetAdresse() + " " + ent.GetCP() + " " + ent.GetVille() + " " + ent.GetTel() + " " + ent.GetFax() + " " + ent.GetEmail() + " " + ent.GetActif() + " " + ent.GetReglement()); //debug/test
-                    //MessageBox.Show(ent.GetReglement()); //Testing
-                    string t = "INSERT INTO public.res_partner(name, company_id, comment, function, create_date, color, date, street, city, display_name, zip, title, country_id, parent_id, supplier, ref, email, is_company, website, customer, fax, street2, employee, credit_limit, write_date, active, tz, write_uid, lang, create_uid, phone, mobile, type, use_parent_address, user_id, birthdate, vat, state_id, commercial_partner_id, notify_email, message_last_post, opt_out, signup_type, signup_expiration, signup_token, debit_limit) VALUES('"+ent.GetRaison()+"', 1, null, null, '"+DateTime.Now.ToString()+"', 0, null, '"+ent.GetAdresse()+"', '"+ent.GetVille()+"', '"+ent.GetRaison()+"', '"+ent.GetCP()+"', null, null, null, false, '"+ent.GetCode()+"', '"+ent.GetEmail()+"', true, null, true, '"+ent.GetFax()+"', null,  false, null, '"+DateTime.Now.ToString()+"', true, null, 1, 'fr_FR', 1, '"+ent.GetTel()+"', null, false, false, null, null, '"+ent.GetReglement()+"', null, null, 'always', null, false, null, null, null, 0.0);";
-                    //richTxtResultat.Text = t;
-                    dbcmd.CommandText = t;
-                    dbcmd.ExecuteNonQuery();
+                    //Feedback utilisateur connexion reussie
+                    richTxtResultat.Text += "Connexion BDD réussie !\n";
+
+                    #endregion
+
+                    #region Envoie vers la BDD
+
+                    //On crée une nouvelle importation qui va aller récupérer et instancier la liste des entreprises contenues dans le fichier csv
+                    import = new Importation(DateTime.Now, txtFichierSource.Text);
+
+                    List<Entreprise> listEntreprises = import.GetLesEntreprises();
+                    foreach (Entreprise ent in listEntreprises)
+                    {
+                        //On effectue les vérifications des champs avant leur insertion dans la base de données
+                        ent.verifRaisonSoc();
+                        ent.verifAdresse();
+                        ent.verifCP();
+                        ent.verifVille();
+                        ent.verifTel();
+                        ent.verifFax();
+                        ent.verifEmail();
+                        ent.verifCode();
+
+                        //Insertion dans la base de données
+                        
+                        string t = "INSERT INTO public.res_partner(name, company_id, comment, function, create_date, color, date, street, city, display_name, zip, title, country_id, parent_id, supplier, ref, email, is_company, website, customer, fax, street2, employee, credit_limit, write_date, active, tz, write_uid, lang, create_uid, phone, mobile, type, use_parent_address, user_id, birthdate, vat, state_id, commercial_partner_id, notify_email, message_last_post, opt_out, signup_type, signup_expiration, signup_token, debit_limit) VALUES('" + ent.GetRaison() + "', 1, null, null, '" + DateTime.Now.ToString() + "', 0, null, '" + ent.GetAdresse() + "', '" + ent.GetVille() + "', '" + ent.GetRaison() + "', '" + ent.GetCP() + "', null, null, null, false, '" + ent.GetCode() + "', '" + ent.GetEmail() + "', true, null, true, '" + ent.GetFax() + "', null,  false, null, '" + DateTime.Now.ToString() + "', true, null, 1, 'fr_FR', 1, '" + ent.GetTel() + "', null, false, false, null, null, '" + ent.GetReglement() + "', null, null, 'always', null, false, null, null, null, 0.0);";
+                        //richTxtResultat.Text = t; //Debug
+                        dbcmd.CommandText = t;
+                        dbcmd.ExecuteNonQuery();
+
+                        //Feedback utilisateur
+                        richTxtResultat.Text += "Insertions dans la base réussie !\n";
+
+                        #endregion
+                    }
                 }
-            /*}
-            catch (NpgsqlException ex)
-            {
-                //MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }*/
-
-            /*try
-            {*/
-                StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
-                                                                    //Ecriture du document texte contenant les erreurs
-                writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
-                foreach (Erreur err in import.GetLesErreurs())
+                catch (NpgsqlException)
                 {
-                    writer.WriteLine(err.ToString());
+                    MessageBox.Show("Problème d'insertion avec la base de données", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                writer.Close();
-                
-                //Envoi du mail
-                Attachment pj = new Attachment("Test.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir StreamWriter ci-dessus : variable writer)
-                import.EnvoieMail(txtAdrMail.Text, pj);//Appel de la methode permettant l'envoie du mail : on renseigne l'adresse mail de destination en paramètre (qui correspond au champ txtAdrMail)
-            /*}
-            catch(Exception er)
-            {
-                MessageBox.Show("Erreur : "+er.Message);
-            }*/
-            
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
-        }
+                try
+                {
+                    #region Generation du document contenant les erreurs
+
+                    StreamWriter writer = new StreamWriter("Erreurs.txt"); //Chemin ou on enregistre le fichier txt
+                                                                        //Ecriture du document texte contenant les erreurs
+                    writer.WriteLine("Bonjour\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
+                    foreach (Erreur err in import.GetLesErreurs())
+                    {
+                        writer.WriteLine(err.ToString());
+                    }
+                    writer.Close();
+                    //Feedback utilisateur
+                    richTxtResultat.Text += "Document généré\n";
+                    #endregion
+
+                    #region Envoie du mail contenant le rapport d'erreur
+
+                    //Envoi du mail
+                    Attachment pj = new Attachment("Erreurs.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir StreamWriter ci-dessus : variable writer)
+                    import.EnvoieMail(txtAdrMail.Text, pj);//Appel de la methode permettant l'envoie du mail : on renseigne l'adresse mail de destination en paramètre (qui correspond au champ txtAdrMail)
+
+                    #endregion
+                }
+                catch (Exception er)
+                {
+                    MessageBox.Show("Erreur : "+er.Message);
+                }
+
+            }//End if(verifChampsSaisis)
+
+        } //End btnExecClick
         
     }
 }

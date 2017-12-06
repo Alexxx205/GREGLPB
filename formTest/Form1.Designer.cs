@@ -41,6 +41,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.richTxtResultat = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtPortServ = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtMdpBdd = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.txtAdrMail = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtPortServ = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +79,7 @@
             this.btnOpenFile.Location = new System.Drawing.Point(409, 63);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(77, 23);
-            this.btnOpenFile.TabIndex = 3;
+            this.btnOpenFile.TabIndex = 1;
             this.btnOpenFile.Text = "Ouvrir";
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
@@ -110,7 +110,7 @@
             this.txtAdrServ.Location = new System.Drawing.Point(200, 151);
             this.txtAdrServ.Name = "txtAdrServ";
             this.txtAdrServ.Size = new System.Drawing.Size(183, 20);
-            this.txtAdrServ.TabIndex = 6;
+            this.txtAdrServ.TabIndex = 2;
             this.txtAdrServ.TextChanged += new System.EventHandler(this.txtAdrServ_TextChanged);
             // 
             // label5
@@ -128,7 +128,7 @@
             this.txtNomBdd.Location = new System.Drawing.Point(200, 217);
             this.txtNomBdd.Name = "txtNomBdd";
             this.txtNomBdd.Size = new System.Drawing.Size(183, 20);
-            this.txtNomBdd.TabIndex = 8;
+            this.txtNomBdd.TabIndex = 4;
             // 
             // btnExec
             // 
@@ -136,7 +136,7 @@
             this.btnExec.Location = new System.Drawing.Point(388, 374);
             this.btnExec.Name = "btnExec";
             this.btnExec.Size = new System.Drawing.Size(105, 30);
-            this.btnExec.TabIndex = 9;
+            this.btnExec.TabIndex = 8;
             this.btnExec.Text = "Executer";
             this.btnExec.UseVisualStyleBackColor = true;
             this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
@@ -198,6 +198,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Importation";
             // 
+            // txtPortServ
+            // 
+            this.txtPortServ.BackColor = System.Drawing.SystemColors.Window;
+            this.txtPortServ.Location = new System.Drawing.Point(200, 183);
+            this.txtPortServ.Name = "txtPortServ";
+            this.txtPortServ.Size = new System.Drawing.Size(183, 20);
+            this.txtPortServ.TabIndex = 3;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -210,16 +218,16 @@
             // 
             // txtMdpBdd
             // 
-            this.txtMdpBdd.Location = new System.Drawing.Point(200, 325);
+            this.txtMdpBdd.Location = new System.Drawing.Point(200, 285);
             this.txtMdpBdd.Name = "txtMdpBdd";
             this.txtMdpBdd.Size = new System.Drawing.Size(183, 20);
-            this.txtMdpBdd.TabIndex = 15;
+            this.txtMdpBdd.TabIndex = 6;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(32, 323);
+            this.label9.Location = new System.Drawing.Point(32, 283);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(152, 20);
             this.label9.TabIndex = 14;
@@ -227,16 +235,16 @@
             // 
             // txtIdBdd
             // 
-            this.txtIdBdd.Location = new System.Drawing.Point(200, 289);
+            this.txtIdBdd.Location = new System.Drawing.Point(200, 252);
             this.txtIdBdd.Name = "txtIdBdd";
             this.txtIdBdd.Size = new System.Drawing.Size(183, 20);
-            this.txtIdBdd.TabIndex = 13;
+            this.txtIdBdd.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(57, 287);
+            this.label8.Location = new System.Drawing.Point(57, 250);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(127, 20);
             this.label8.TabIndex = 12;
@@ -244,16 +252,16 @@
             // 
             // txtAdrMail
             // 
-            this.txtAdrMail.Location = new System.Drawing.Point(200, 253);
+            this.txtAdrMail.Location = new System.Drawing.Point(200, 319);
             this.txtAdrMail.Name = "txtAdrMail";
             this.txtAdrMail.Size = new System.Drawing.Size(183, 20);
-            this.txtAdrMail.TabIndex = 11;
+            this.txtAdrMail.TabIndex = 7;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(62, 251);
+            this.label7.Location = new System.Drawing.Point(62, 317);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(122, 20);
             this.label7.TabIndex = 10;
@@ -268,14 +276,6 @@
             this.label1.Size = new System.Drawing.Size(162, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Choix du fichier";
-            // 
-            // txtPortServ
-            // 
-            this.txtPortServ.BackColor = System.Drawing.SystemColors.Window;
-            this.txtPortServ.Location = new System.Drawing.Point(200, 183);
-            this.txtPortServ.Name = "txtPortServ";
-            this.txtPortServ.Size = new System.Drawing.Size(183, 20);
-            this.txtPortServ.TabIndex = 17;
             // 
             // Form1
             // 
