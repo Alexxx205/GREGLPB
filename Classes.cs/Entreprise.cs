@@ -50,21 +50,6 @@ namespace Classes.cs
         }
 
         /// <summary>
-        /// Verification du code
-        /// </summary>
-        public void verifCode()
-        {
-            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour le code : ne doit être composé que de caractères alphanumériques
-            Match regexCode = regex.Match(this.code); // verifie que le code rentre dans les critères
-            if (!regexCode.Success)
-            {
-                this.lImportation.AjouterErreur(1, "Code Entreprise incorrecte", this.code, "code",
-                    "Le code de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer un code valide.");
-                //this.code = "";
-            }
-        }
-
-        /// <summary>
         /// Verification de la raison sociale
         /// </summary>
         public void verifRaisonSoc()
