@@ -168,7 +168,6 @@ namespace formTest
                         ent.verifTel();
                         ent.verifFax();
                         ent.verifEmail();
-                        ent.verifCode();
 
                         //Insertion dans la base de données
                         
