@@ -26,7 +26,7 @@ namespace formTest
             InitializeComponent();
 
             //Valeurs par défaut des champs
-            txtAdrServ.Text = "127.0.0.1";
+            txtAdrServ.Text = "127.0.0.1";  // a remplacer par l'adresse du serveur des réseaux
             txtNomBdd.Text = "Test";
             txtAdrMail.Text = "adrex@mail.fr";
         }
@@ -92,15 +92,20 @@ namespace formTest
             //Overture de la connexion a la BDD
 
             //Informations de connexion
-            string adresse = ip;
+            string adresse = ip; //on prend l'adresse ip qu'on vient de vérifier
             string name = txtNomBdd.Text;
-            string userId = "openpg";
-            string password = "openpgpwd";
+            string port = txtPortServ.Text;
+            string userId = txtIdBdd.Text;
+            string password = txtMdpBdd.Text;
 
             // Connexion à la base de données
             /*try
             {*/
-                conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Test;");
+            //Connexion lors des tests
+            //conn = new NpgsqlConnection("Server=localhost;port=5432;User Id=openpg;password=openpgpwd;Database=Test;");
+
+                string chaineConnex = "Server=" + ip + ";port=" + txtPortServ.Text + ";User Id=" + userId + ";password=" + password + ";Database=" + name + ";";
+                conn = new NpgsqlConnection(chaineConnex);
                 conn.Open();
                 //conn = new NpgsqlConnection("Server=" + adresse + ";port=8069;User Id=" + userId + ";" + "Password=" + password + ";Database=" + name + ";");
                 dbcmd = conn.CreateCommand();
@@ -146,22 +151,28 @@ namespace formTest
                 MessageBox.Show(ex.Message);
             }*/
 
-            StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
-            //Ecriture du document texte contenant les erreurs
-            writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
-            foreach (Erreur err in import.GetLesErreurs())
+            /*try
+            {*/
+                StreamWriter writer = new StreamWriter("Test.txt"); //Chemin ou on enregistre le fichier txt
+                                                                    //Ecriture du document texte contenant les erreurs
+                writer.WriteLine("Bonjour :)\n\tVoici les erreurs rencontrées lors de l'importation vers la base de données :\n");
+                foreach (Erreur err in import.GetLesErreurs())
+                {
+                    writer.WriteLine(err.ToString());
+                }
+                writer.Close();
+                
+                //Envoi du mail
+                Attachment pj = new Attachment("Test.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir StreamWriter ci-dessus : variable writer)
+                import.EnvoieMail(txtAdrMail.Text, pj);//Appel de la methode permettant l'envoie du mail : on renseigne l'adresse mail de destination en paramètre (qui correspond au champ txtAdrMail)
+            /*}
+            catch(Exception er)
             {
-                writer.WriteLine(err.ToString());
-            }
-            writer.Close();
-
-
-            //Envoi du mail
-            Attachment pj = new Attachment("Test.txt"); //chemin d'acces ou a été enregistré le fichier txt (voir l.132)
-            import.EnvoieMail(pj);
-
+                MessageBox.Show("Erreur : "+er.Message);
+            }*/
             
 
         }
+        
     }
 }

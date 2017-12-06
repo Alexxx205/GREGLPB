@@ -50,21 +50,6 @@ namespace Classes.cs
         }
 
         /// <summary>
-        /// Verification de l'e-mail
-        /// </summary>
-        public void verifEmail()
-        {
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // regex correspondant au format e-mail
-            Match regexMail = regex.Match(this.eMail); // verifie que le mail rentre dans les critères
-            if (!regexMail.Success)
-            {
-                this.eMail = "mailnonok@mail.fr";
-                this.lImportation.AjouterErreur(9, "Adresse e-mail incorrecte", this.code, "e-mail", 
-                    "L'adresse e-mail ne correspond pas au format exemple@ex.fr/com... Veuillez insérer une adresse e-mail valide.");
-            }
-        }
-
-        /// <summary>
         /// Verification du code
         /// </summary>
         public void verifCode()
@@ -73,41 +58,52 @@ namespace Classes.cs
             Match regexCode = regex.Match(this.code); // verifie que le code rentre dans les critères
             if (!regexCode.Success)
             {
-                this.lImportation.AjouterErreur(1, "Code Entreprise incorrecte", this.code, "code", 
+                this.lImportation.AjouterErreur(1, "Code Entreprise incorrecte", this.code, "code",
                     "Le code de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer un code valide.");
                 //this.code = "";
             }
         }
 
         /// <summary>
-        /// Verification du fax
+        /// Verification de la raison sociale
         /// </summary>
-        public void verifFax()
+        public void verifRaisonSoc()
         {
-            Regex regex = new Regex("^-?\\d+$"); // pour le fax
-            Match match = regex.Match(this.fax); // verifie que le fax rentre dans les critères
-            if (!match.Success)
+            //verification : la raison sociale ne doit pas comporter plus de 3 mêmes lettres consécutives
+            if (!RepetitionLettres(this.raisonSociale))
             {
-                this.fax = "0000000000";
-                this.lImportation.AjouterErreur(8, "Fax non valide", this.code, "Fax", 
-                    "Le fax de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de fax valide.");
+                this.raisonSociale = "raisonsocnonok";
+                this.lImportation.AjouterErreur(2, "Raison sociale non valide", this.code, "raison sociale",
+                            "La raison sociale de l'entreprise contient une succession de plus de 3 mêmes caractères. Veuillez insérer une raison sociale valide.");
+            }
+            else
+            {
+                this.raisonSociale = this.raisonSociale.ToUpper();
+
+                Regex regex = new Regex("/^[ A-Za-z0-9_@./#&+-]*$/"); // tous les caractères sont des lettres
+                Match regexCode = regex.Match(this.raisonSociale); // verifie que le code rentre dans les critères
+                if (!regexCode.Success)
+                {
+                    this.raisonSociale = "rsnonok";
+                    this.lImportation.AjouterErreur(3, "Raison sociale non valide", this.code, "raison sociale",
+                        "La raison sociale de l'entreprise est non conforme au format demandé. Veuillez insérer une raison sociale valide.");
+                }
             }
         }
 
         /// <summary>
-        /// Verification du telephone
+        /// Verification du champ adresse
         /// </summary>
-        public void verifTel()
+        public void verifAdresse()
         {
-            Regex regex = new Regex("^-?\\d+${10}"); // pour le tel
-            Match match = regex.Match(this.tel); // verifie que le tel rentre dans les critères
-            if (!match.Success)
+            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
+            Match regexAdr = regex.Match(this.adresse); // verifie que le code rentre dans les critères
+            if (!regexAdr.Success)
             {
-                this.tel = "0000000000";
-                lImportation.AjouterErreur(7, "Numero de téléphone non valide", this.code, "Téléphone",
-                     "Le numéro de téléphone de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de téléphone valide.");
+                this.adresse = "adresse";
+                this.lImportation.AjouterErreur(4, "Adresse incorrecte", this.adresse, "adresse",
+                    "L'adresse de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une adresse valide.");
             }
-
         }
 
         /// <summary>
@@ -126,12 +122,72 @@ namespace Classes.cs
         }
 
         /// <summary>
+        /// Verification du champ ville
+        /// </summary>
+        public void verifVille()
+        {
+            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
+            Match regexVille = regex.Match(this.ville); // verifie que le code rentre dans les critères
+            if (!regexVille.Success)
+            {
+                this.ville = "ville";
+                this.lImportation.AjouterErreur(6, "Ville incorrecte", this.ville, "ville",
+                    "La ville de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une ville valide.");
+            }
+        }
+
+        /// <summary>
+        /// Verification du telephone
+        /// </summary>
+        public void verifTel()
+        {
+            Regex regex = new Regex("^-?\\d+${10}"); // pour le tel
+            Match match = regex.Match(this.tel); // verifie que le tel rentre dans les critères
+            if (!match.Success)
+            {
+                this.tel = "0000000000";
+                lImportation.AjouterErreur(7, "Numero de téléphone non valide", this.code, "Téléphone",
+                     "Le numéro de téléphone de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de téléphone valide.");
+            }
+        }
+
+        /// <summary>
+        /// Verification du fax
+        /// </summary>
+        public void verifFax()
+        {
+            Regex regex = new Regex("^-?\\d+$"); // pour le fax
+            Match match = regex.Match(this.fax); // verifie que le fax rentre dans les critères
+            if (!match.Success)
+            {
+                this.fax = "0000000000";
+                this.lImportation.AjouterErreur(8, "Fax non valide", this.code, "Fax",
+                    "Le fax de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de fax valide.");
+            }
+        }
+
+        /// <summary>
+        /// Verification de l'e-mail
+        /// </summary>
+        public void verifEmail()
+        {
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); // regex correspondant au format e-mail
+            Match regexMail = regex.Match(this.eMail); // verifie que le mail rentre dans les critères
+            if (!regexMail.Success)
+            {
+                this.eMail = "mailnonok@mail.fr";
+                this.lImportation.AjouterErreur(9, "Adresse e-mail incorrecte", this.code, "e-mail", 
+                    "L'adresse e-mail ne correspond pas au format exemple@ex.fr/com... Veuillez insérer une adresse e-mail valide.");
+            }
+        }
+
+        /// <summary>
         /// Methode qui permet de vérifier si une chaine de caractères contient une répétition de 3 fois la même 
         /// lettre à la suite
         /// </summary>
         /// <param name="chaine">Chaine de caractères à tester</param>
         /// <returns>True si il n'y a pas de répétition de 3 lettres ou plus / False si la chaine n'est pas conforme (elle contient une répétition de 3 lettres ou plus)</returns>
-        public bool repetitionLettres(string chaine)
+        public bool RepetitionLettres(string chaine)
         {
             bool resultat = true;
             string[] myArray = new string[chaine.Count()]; //Création d'un tableau de même longueur que la chaine de caractères
@@ -153,58 +209,6 @@ namespace Classes.cs
             }
             return resultat;
         }
-
-        /// <summary>
-        /// Verification de la raison sociale
-        /// </summary>
-        public void verifRaisonSoc()
-        {
-            //verification : la raison sociale ne doit pas comporter plus de 3 mêmes lettres consécutives
-            if (!repetitionLettres(this.raisonSociale))
-            {
-                this.raisonSociale = "raisonsocnonok";
-                this.lImportation.AjouterErreur(2, "Raison sociale non valide", this.code, "raison sociale",
-                            "La raison sociale de l'entreprise contient une succession de plus de 3 mêmes caractères. Veuillez insérer une raison sociale valide.");
-            }
-            else
-            {
-                this.raisonSociale = this.raisonSociale.ToUpper();
-
-                Regex regex = new Regex("/^[ A-Za-z0-9_@./#&+-]*$/"); // tous les caractères sont des lettres
-                Match regexCode = regex.Match(this.raisonSociale); // verifie que le code rentre dans les critères
-                if (!regexCode.Success)
-                {
-                    this.raisonSociale = "rsnonok";
-                    this.lImportation.AjouterErreur(3, "Raison sociale non valide", this.code, "raison sociale",
-                        "La raison sociale de l'entreprise est non conforme au format demandé. Veuillez insérer une raison sociale valide.");
-                }
-            }
-        }
-
-        public void verifAdresse()
-        {
-            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
-            Match regexAdr = regex.Match(this.adresse); // verifie que le code rentre dans les critères
-            if (!regexAdr.Success)
-            {
-                this.adresse = "adresse";
-                this.lImportation.AjouterErreur(4, "Adresse incorrecte", this.adresse, "adresse", 
-                    "L'adresse de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une adresse valide.");
-            }
-        }
-
-        public void verifVille()
-        {
-            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
-            Match regexVille = regex.Match(this.ville); // verifie que le code rentre dans les critères
-            if (!regexVille.Success)
-            {
-                this.ville = "ville";
-                this.lImportation.AjouterErreur(6, "Ville incorrecte", this.ville, "ville",
-                    "La ville de l'entreprise contient des caractères non conforme au format demandé. Veuillez insérer une ville valide.");
-            }
-        }
-
         
         public string GetCode()
         {

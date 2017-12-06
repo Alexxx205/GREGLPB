@@ -14,6 +14,14 @@ namespace Classes.cs
         private string champConcerne;
         private string description;
 
+        /// <summary>
+        /// Contructeur
+        /// </summary>
+        /// <param name="unCode">Code de l'erreur</param>
+        /// <param name="unNom">Nom de l'erreur</param>
+        /// <param name="unCodeLigne">Code de l'entreprise concernée par l'erreur</param>
+        /// <param name="unChamp">Champ concerné par l'erreur</param>
+        /// <param name="uneDesc">Description de l'erreur</param>
         public Erreur(int unCode, string unNom, string unCodeLigne, string unChamp, string uneDesc)
         {
             this.codeErreur = unCode;
@@ -23,6 +31,10 @@ namespace Classes.cs
             this.description = uneDesc;
         }
 
+        /// <summary>
+        /// Methode qui permet de générer la chaine concernant une erreur (pour fichier erreur)
+        /// </summary>
+        /// <returns>Chaine erreur</returns>
         public override string ToString()
         {
             string strErreur = "Erreur " + this.codeErreur + " : " + this.nom + " pour l'entreprise ayant le code : " + this.codeLigneConcernee

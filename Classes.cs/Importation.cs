@@ -10,10 +10,10 @@ namespace Classes.cs
 {
     public class Importation
     {
-        private DateTime dateImport;
-        private string fichierImporte;
-        List<Entreprise> lesEntreprises;
-        List<Erreur> lesErreurs;
+        private DateTime dateImport;    //date de l'importation
+        private string fichierImporte;  //chemin du fichier importé
+        List<Entreprise> lesEntreprises;//liste contenant l'ensemble de entreprises a importer
+        List<Erreur> lesErreurs;        //liste contenant l'ensemble des erreurs rencontrées lors de l'importation
 
         public Importation(DateTime uneDate, string unCheminFichier)
         {
@@ -25,9 +25,10 @@ namespace Classes.cs
 
             //Recuperation des données contenues dans le fichier csv pour ajouter à la liste lesEntreprises
 
-            //test avec le fichier
+            //test avec un fichier test
             //using (var reader = new StreamReader(@"Z:\SIO2\PPE_SIO2\Contexte_INTERWAY_GEDIMAT\MissionsSLAM\Ressources\clientCSV.csv"))
 
+            //on récupère la liste ds entreprises grace au fichier csv dont le chemin est spécifié dans l'attribut unCheminFichier
             using (var reader = new StreamReader(unCheminFichier))
             {
                 List<string> listCode = new List<string>();
@@ -60,18 +61,20 @@ namespace Classes.cs
                 }
                 for (int i = 1; i < listCode.Count; i++)
                 {
-                    //Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}", listCode[i], listRaisonSoc[i], listCp[i], listVille[i], listTel[i], listFax[i], listActif[i], listReglement[i]);
-                    //Console.WriteLine("---{0}", i);
+                    //Test console
+                    /*Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}", listCode[i], listRaisonSoc[i], listCp[i], listVille[i], listTel[i], listFax[i], listActif[i], listReglement[i]);
+                    Console.WriteLine("---{0}", i);*/
 
+
+                    //Creation de l'objet Entreprise pour l'ajouter à la liste
                     Entreprise e = new Entreprise(listCode[i], listRaisonSoc[i],listAdr[i], listCp[i], listVille[i], listTel[i], listFax[i],listMail[i], listActif[i], listReglement[i], this);
                     lesEntreprises.Add(e);
                 }
             }
-
         }
 
         /// <summary>
-        /// Methode qui permet d'ajouter une erreur a la liste lesErreurs
+        /// Methode qui permet d'ajouter une erreur à la liste lesErreurs
         /// </summary>
         /// <param name="unCode">Numero de l'erreur déclenchée</param>
         /// <param name="unNom">Nom de l'erreur</param>
@@ -97,7 +100,7 @@ namespace Classes.cs
         /// Methode qui envoie un mail avec en piece jointe le document texte qui contient toutes les erreurs de la liste lesErreurs
         /// </summary>
         /// <param name="unePJ">Piece jointe de l'e-mail : fichier texte contenant les erreurs</param>
-        public void EnvoieMail(Attachment unePJ)
+        public void EnvoieMail(string mailDestination, Attachment unePJ)
         {
 
             SmtpClient client = new SmtpClient();
@@ -105,21 +108,21 @@ namespace Classes.cs
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
             client.Timeout = 10000;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network; //On envoie par reseau a un servuer SMTP
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997");
+            client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997"); //Authentification pour utiliser l'adresse mail qui va envoyer le mail
 
-            MailMessage mm = new MailMessage("test21101997@gmail.com", "test20051998@gmail.com");
-            mm.Subject = "Gedimat";
-            mm.Body = "Message bonjour ! :)";
-            Attachment attachment = unePJ;
-            mm.Attachments.Add(attachment);
+            MailMessage mm = new MailMessage("test21101997@gmail.com", mailDestination); //adresse d'envoie et de destination
+            mm.Subject = "Gedimat";             //Objet de l'e-mail
+            mm.Body = "Message bonjour ! :)";   //Contenu de l'e-mail
+            Attachment attachment = unePJ;      //declaration de la piece jointe
+            mm.Attachments.Add(attachment);     //ajout de la pj
 
 
             mm.BodyEncoding = UTF8Encoding.UTF8;
             mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-            client.Send(mm);
+            client.Send(mm); //Envoie
         }
 
         public List<Entreprise> GetLesEntreprises()
