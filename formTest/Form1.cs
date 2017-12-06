@@ -26,7 +26,7 @@ namespace formTest
             InitializeComponent();
 
             //Valeurs par défaut des champs
-            txtAdrServ.Text = "localhost";  // a remplacer par l'adresse du serveur des réseaux
+            txtAdrServ.Text = "127.0.0.1";  // a remplacer par l'adresse du serveur des réseaux
             txtNomBdd.Text = "Gedimat";
             txtAdrMail.Text = "test20051998@gmail.com";
             txtPortServ.Text = "5432";
@@ -176,12 +176,12 @@ namespace formTest
                         //richTxtResultat.Text = t; //Debug
                         dbcmd.CommandText = t;
                         dbcmd.ExecuteNonQuery();
-
-                        //Feedback utilisateur
-                        richTxtResultat.Text += "Insertions dans la base réussie !\n";
-
-                        #endregion
+                        
                     }
+                    //Feedback utilisateur
+                    richTxtResultat.Text += "Insertions dans la base réussie !\n";
+
+                    #endregion
                 }
                 catch (NpgsqlException)
                 {

@@ -80,7 +80,7 @@ namespace Classes.cs
             {
                 this.raisonSociale = this.raisonSociale.ToUpper();
 
-                Regex regex = new Regex("/^[ A-Za-z0-9_@./#&+-]*$/"); // tous les caractères sont des lettres
+                Regex regex = new Regex("/^[ A-Za-z0-9_@./#&+- ]*$/"); // tous les caractères sont des lettres
                 Match regexCode = regex.Match(this.raisonSociale); // verifie que le code rentre dans les critères
                 if (!regexCode.Success)
                 {
@@ -126,7 +126,7 @@ namespace Classes.cs
         /// </summary>
         public void verifVille()
         {
-            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
+            Regex regex = new Regex("^[a-zA-Z][a-zA-Z0-9 ]*$"); // pour l'adresse : ne doit être composée que de caractères alphanumériques
             Match regexVille = regex.Match(this.ville); // verifie que le code rentre dans les critères
             if (!regexVille.Success)
             {
