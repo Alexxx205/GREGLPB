@@ -141,6 +141,7 @@ namespace Classes.cs
         /// </summary>
         public void verifTel()
         {
+            this.tel = Regex.Replace(this.tel, "[^a-zA-Z0-9_]", "");
             Regex regex = new Regex("^-?\\d+${10}"); // pour le tel
             Match match = regex.Match(this.tel); // verifie que le tel rentre dans les critères
             if (!match.Success)
@@ -149,6 +150,16 @@ namespace Classes.cs
                 lImportation.AjouterErreur(7, "Numero de téléphone non valide", this.code, "Téléphone",
                      "Le numéro de téléphone de l'entreprise ne correspond pas au format attendu. Veuillez entrer un numero de téléphone valide.");
             }
+            else
+            {
+                if(this.tel.Length !=10)
+                {
+                    this.tel = "0000000000";
+                    lImportation.AjouterErreur(10, "Numero de téléphone non valide", this.code, "Téléphone",
+                         "Le numéro de téléphone ne comporte pas 10 chiffres. Veuillez entrer un numero de téléphone complet.");
+                }
+
+            }
         }
 
         /// <summary>
@@ -156,6 +167,7 @@ namespace Classes.cs
         /// </summary>
         public void verifFax()
         {
+            this.fax = Regex.Replace(this.fax, "[^a-zA-Z0-9_]", "");
             Regex regex = new Regex("^-?\\d+$"); // pour le fax
             Match match = regex.Match(this.fax); // verifie que le fax rentre dans les critères
             if (!match.Success)
