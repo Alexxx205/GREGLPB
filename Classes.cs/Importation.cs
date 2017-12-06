@@ -113,8 +113,8 @@ namespace Classes.cs
             client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997"); //Authentification pour utiliser l'adresse mail qui va envoyer le mail
 
             MailMessage mm = new MailMessage("test21101997@gmail.com", mailDestination); //adresse d'envoie et de destination
-            mm.Subject = "Gedimat";             //Objet de l'e-mail
-            mm.Body = "Message bonjour ! :)";   //Contenu de l'e-mail
+            mm.Subject = "Rapport d'erreur importation BDD Gedimat";             //Objet de l'e-mail
+            mm.Body = "Bonjour vous trouverez ci-joint un document texte contenant l'ensemble des erreurs trouvés durant l'importation des données dansa la base.";   //Contenu de l'e-mail
             Attachment attachment = unePJ;      //declaration de la piece jointe
             mm.Attachments.Add(attachment);     //ajout de la pj
 

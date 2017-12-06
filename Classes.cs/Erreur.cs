@@ -37,7 +37,7 @@ namespace Classes.cs
         /// <returns>Chaine erreur</returns>
         public override string ToString()
         {
-            string strErreur = "Erreur " + this.codeErreur + " : " + this.nom + " pour l'entreprise ayant le code : " + this.codeLigneConcernee
+            string strErreur = "Erreur type " + this.codeErreur + " : " + this.nom + " pour l'entreprise ayant le code : " + this.codeLigneConcernee
                 + " concernant le champ : " + this.champConcerne + ".\nDescription :" + this.description + "\n\n";
             return strErreur;
         }
