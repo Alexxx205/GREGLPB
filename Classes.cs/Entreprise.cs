@@ -36,15 +36,15 @@ namespace Classes.cs
         /// <param name="uneImportation">Importation concernant l'entreprise</param>
         public Entreprise(string unCode, string uneRaison, string uneAdresse, string unCp, string uneVille, string unTel, string unFax, string unMail, string unActif,string unReglement, Importation uneImportation)
         {
-            this.code = unCode;
-            this.raisonSociale = uneRaison;
-            this.adresse = uneAdresse;
-            this.cp = unCp;
-            this.ville = uneVille;
-            this.tel = unTel;
-            this.fax = unFax;
-            this.eMail = unMail;
-            this.actif = unActif;
+            this.code = unCode.Replace("'", "");
+            this.raisonSociale = uneRaison.Replace("'", "");
+            this.adresse = uneAdresse.Replace("'", "");
+            this.cp = unCp.Replace("'", "");
+            this.ville = uneVille.Replace("'", "");
+            this.tel = unTel.Replace("'", "");
+            this.fax = unFax.Replace("'", "");
+            this.eMail = unMail.Replace("'", "");
+            this.actif = unActif.Replace("'", "");
             this.reglement = unReglement.Replace("'", "");
             this.lImportation = uneImportation;
         }
@@ -72,6 +72,16 @@ namespace Classes.cs
                     this.raisonSociale = "rsocNonOk";
                     this.lImportation.AjouterErreur(3, "Raison sociale non valide", this.code, "raison sociale",
                         "La raison sociale de l'entreprise est non conforme au format demandé. Veuillez insérer une raison sociale valide.");
+                }
+                else
+                {
+                    if(this.raisonSociale.Length<1)
+                    {
+                        this.raisonSociale = "rSocialeNonOk";
+                        this.lImportation.AjouterErreur(13, "Raison sociale non valide", this.code, "raison sociale",
+                            "La raison sociale de l'entreprise est vide. Veuillez insérer une raison sociale valide.");
+                    }
+
                 }
             }
         }
