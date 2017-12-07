@@ -50,8 +50,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtAdrServ = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.richTxtProgression = new System.Windows.Forms.RichTextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +60,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 252);
+            this.label6.Location = new System.Drawing.Point(2, 206);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(188, 20);
             this.label6.TabIndex = 11;
@@ -68,8 +68,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.progressBar);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.richTxtProgression);
             this.groupBox1.Controls.Add(this.richTxtResultat);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(537, 12);
@@ -82,9 +82,9 @@
             // richTxtResultat
             // 
             this.richTxtResultat.Enabled = false;
-            this.richTxtResultat.Location = new System.Drawing.Point(10, 275);
+            this.richTxtResultat.Location = new System.Drawing.Point(6, 229);
             this.richTxtResultat.Name = "richTxtResultat";
-            this.richTxtResultat.Size = new System.Drawing.Size(481, 121);
+            this.richTxtResultat.Size = new System.Drawing.Size(485, 167);
             this.richTxtResultat.TabIndex = 12;
             this.richTxtResultat.Text = "";
             // 
@@ -291,23 +291,22 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Adresse du serveur :";
             // 
-            // richTxtProgression
-            // 
-            this.richTxtProgression.Location = new System.Drawing.Point(10, 39);
-            this.richTxtProgression.Name = "richTxtProgression";
-            this.richTxtProgression.Size = new System.Drawing.Size(481, 205);
-            this.richTxtProgression.TabIndex = 13;
-            this.richTxtProgression.Text = "";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 16);
+            this.label11.Location = new System.Drawing.Point(16, 66);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(101, 20);
             this.label11.TabIndex = 14;
             this.label11.Text = "Progression :";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(6, 89);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(485, 23);
+            this.progressBar.TabIndex = 15;
             // 
             // Form1
             // 
@@ -351,7 +350,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtPortServ;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.RichTextBox richTxtProgression;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
