@@ -107,7 +107,7 @@ namespace Classes.cs
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            client.Timeout = 10000;
+            //client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network; //On envoie par reseau a un servuer SMTP
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997"); //Authentification pour utiliser l'adresse mail qui va envoyer le mail
