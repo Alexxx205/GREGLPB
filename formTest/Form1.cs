@@ -165,7 +165,6 @@ namespace formTest
                     import = new Importation(DateTime.Now, txtFichierSource.Text);
 
                     List<Entreprise> listEntreprises = import.GetLesEntreprises();
-
                     foreach (Entreprise ent in listEntreprises)
                     {
                         //On effectue les vérifications des champs avant leur insertion dans la base de données
@@ -184,7 +183,7 @@ namespace formTest
                         dbcmd.CommandText = t;
                         dbcmd.ExecuteNonQuery();
 
-                        richTxtProgression.Text += "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
+                        richTxtProgression.Text = "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
                         cpt++;
                     }
                     //Feedback utilisateur
