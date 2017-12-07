@@ -190,10 +190,11 @@ namespace formTest
                         //richTxtResultat.Text = t; //Debug
                         dbcmd.CommandText = t;
                         dbcmd.ExecuteNonQuery();
-
-                        //richTxtProgression.Text += "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
                         progressBar.PerformStep();
-                        //cpt++;
+                        progressBar.Refresh();
+                        //richTxtProgression.Text += "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
+
+                        cpt++;
                     }
                     //Feedback utilisateur
                     richTxtResultat.Text += "Insertions dans la base réussie !\n";
