@@ -60,7 +60,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(2, 206);
+            this.label6.Location = new System.Drawing.Point(6, 92);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(188, 20);
             this.label6.TabIndex = 11;
@@ -74,7 +74,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(537, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(497, 402);
+            this.groupBox1.Size = new System.Drawing.Size(497, 288);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Importation";
@@ -82,7 +82,7 @@
             // richTxtResultat
             // 
             this.richTxtResultat.Enabled = false;
-            this.richTxtResultat.Location = new System.Drawing.Point(6, 229);
+            this.richTxtResultat.Location = new System.Drawing.Point(6, 115);
             this.richTxtResultat.Name = "richTxtResultat";
             this.richTxtResultat.Size = new System.Drawing.Size(485, 167);
             this.richTxtResultat.TabIndex = 12;
@@ -241,7 +241,7 @@
             // btnOpenFile
             // 
             this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btnOpenFile.Location = new System.Drawing.Point(416, 63);
+            this.btnOpenFile.Location = new System.Drawing.Point(389, 61);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(77, 23);
             this.btnOpenFile.TabIndex = 1;
@@ -295,7 +295,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(16, 66);
+            this.label11.Location = new System.Drawing.Point(6, 27);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(101, 20);
             this.label11.TabIndex = 14;
@@ -303,7 +303,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(6, 89);
+            this.progressBar.Location = new System.Drawing.Point(6, 50);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(485, 23);
             this.progressBar.TabIndex = 15;

@@ -126,7 +126,7 @@ namespace Classes.cs
 
             MailMessage mm = new MailMessage("test21101997@gmail.com", mailDestination); //adresse d'envoie et de destination
             mm.Subject = "Rapport d'erreur importation BDD Gedimat";             //Objet de l'e-mail
-            mm.Body = "Bonjour vous trouverez ci-joint un document texte contenant l'ensemble des erreurs trouvés durant l'importation des données dansa la base.\nFichier concerné : "+this.fichierImporte+"\nDate de l'importation : "+this.dateImport.ToString();   //Contenu de l'e-mail
+            mm.Body = "Bonjour vous trouverez ci-joint un document texte contenant l'ensemble des erreurs trouvées durant l'importation des données dans la base.\nFichier concerné : "+this.fichierImporte+"\nDate de l'importation : "+this.dateImport.ToString();   //Contenu de l'e-mail
             Attachment attachment = unePJ;      //declaration de la piece jointe
             mm.Attachments.Add(attachment);     //ajout de la pj
 
