@@ -66,11 +66,11 @@ namespace Classes.cs
                     /*Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}", listCode[i], listRaisonSoc[i], listCp[i], listVille[i], listTel[i], listFax[i], listActif[i], listReglement[i]);
                     Console.WriteLine("---{0}", i);*/
                     ok = true;
-                    foreach(string code in listCode)
+                    foreach(Entreprise e in lesEntreprises)
                     {
-                        if (listCode[i] == code)
+                        if (listCode[i] == e.GetCode())
                         {
-                            this.AjouterErreur(14, "Ligne en double", code, "code", "L'un des codes entreprise à été repéré à plusieurs reprises, les doublond n'ont pas été pris en compte");
+                            this.AjouterErreur(14, "Ligne en double", e.GetCode(), "code", "L'un des codes entreprise à été repéré à plusieurs reprises, les doublon n'ont pas été pris en compte");
                             ok = false;
                         }
 
