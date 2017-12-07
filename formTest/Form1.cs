@@ -34,7 +34,11 @@ namespace formTest
             txtMdpBdd.Text = "openpgpwd";
 
             richTxtResultat.Text = ""; //On initialise a vide pour pouvoir utiliser += par la suite
-            richTxtProgression.Text = ""; //meme chose
+            //richTxtProgression.Text = ""; //meme chose
+
+            //option de la progress bar
+            progressBar.Minimum = 0;
+            progressBar.Step = 1;
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -165,6 +169,10 @@ namespace formTest
                     import = new Importation(DateTime.Now, txtFichierSource.Text);
 
                     List<Entreprise> listEntreprises = import.GetLesEntreprises();
+
+                    //On set le maximum de la barre de chargement au nombre d'entreprises
+                    progressBar.Maximum = listEntreprises.Count;
+
                     foreach (Entreprise ent in listEntreprises)
                     {
                         //On effectue les vérifications des champs avant leur insertion dans la base de données
@@ -183,8 +191,9 @@ namespace formTest
                         dbcmd.CommandText = t;
                         dbcmd.ExecuteNonQuery();
 
-                        richTxtProgression.Text = "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
-                        cpt++;
+                        //richTxtProgression.Text += "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
+                        progressBar.PerformStep();
+                        //cpt++;
                     }
                     //Feedback utilisateur
                     richTxtResultat.Text += "Insertions dans la base réussie !\n";
