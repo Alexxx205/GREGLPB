@@ -121,4 +121,7 @@
   <data name="PANDA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PANDA.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PANDA2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PANDA2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

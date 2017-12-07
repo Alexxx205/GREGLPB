@@ -28,15 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtFichierSource = new System.Windows.Forms.TextBox();
-            this.btnOpenFile = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtAdrServ = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtNomBdd = new System.Windows.Forms.TextBox();
-            this.btnExec = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.richTxtResultat = new System.Windows.Forms.RichTextBox();
@@ -50,100 +41,18 @@
             this.txtAdrMail = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnExec = new System.Windows.Forms.Button();
+            this.txtFichierSource = new System.Windows.Forms.TextBox();
+            this.txtNomBdd = new System.Windows.Forms.TextBox();
+            this.btnOpenFile = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtAdrServ = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Fichier source :";
-            // 
-            // txtFichierSource
-            // 
-            this.txtFichierSource.Enabled = false;
-            this.txtFichierSource.Location = new System.Drawing.Point(166, 63);
-            this.txtFichierSource.Name = "txtFichierSource";
-            this.txtFichierSource.Size = new System.Drawing.Size(217, 20);
-            this.txtFichierSource.TabIndex = 2;
-            this.txtFichierSource.TextChanged += new System.EventHandler(this.txtFichierSource_TextChanged);
-            // 
-            // btnOpenFile
-            // 
-            this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btnOpenFile.Location = new System.Drawing.Point(416, 63);
-            this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(77, 23);
-            this.btnOpenFile.TabIndex = 1;
-            this.btnOpenFile.Text = "Ouvrir";
-            this.btnOpenFile.UseVisualStyleBackColor = true;
-            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 115);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(148, 23);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Selection BDD";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(30, 149);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(154, 20);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Adresse du serveur :";
-            // 
-            // txtAdrServ
-            // 
-            this.txtAdrServ.BackColor = System.Drawing.SystemColors.Window;
-            this.txtAdrServ.Location = new System.Drawing.Point(200, 151);
-            this.txtAdrServ.Name = "txtAdrServ";
-            this.txtAdrServ.Size = new System.Drawing.Size(183, 20);
-            this.txtAdrServ.TabIndex = 2;
-            this.txtAdrServ.TextChanged += new System.EventHandler(this.txtAdrServ_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(57, 215);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 20);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Nom de la BDD :";
-            // 
-            // txtNomBdd
-            // 
-            this.txtNomBdd.Location = new System.Drawing.Point(200, 217);
-            this.txtNomBdd.Name = "txtNomBdd";
-            this.txtNomBdd.Size = new System.Drawing.Size(183, 20);
-            this.txtNomBdd.TabIndex = 4;
-            // 
-            // btnExec
-            // 
-            this.btnExec.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExec.Location = new System.Drawing.Point(388, 374);
-            this.btnExec.Name = "btnExec";
-            this.btnExec.Size = new System.Drawing.Size(105, 30);
-            this.btnExec.TabIndex = 8;
-            this.btnExec.Text = "Executer";
-            this.btnExec.UseVisualStyleBackColor = true;
-            this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
             // 
             // label6
             // 
@@ -177,7 +86,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackgroundImage = global::formTest.Properties.Resources.PANDA;
+            this.groupBox2.BackgroundImage = global::formTest.Properties.Resources.PANDA2;
             this.groupBox2.Controls.Add(this.txtPortServ);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtMdpBdd);
@@ -198,7 +107,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(15, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(499, 410);
+            this.groupBox2.Size = new System.Drawing.Size(499, 402);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Importation";
@@ -286,6 +195,97 @@
             this.label1.Size = new System.Drawing.Size(162, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Choix du fichier";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(30, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Fichier source :";
+            // 
+            // btnExec
+            // 
+            this.btnExec.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExec.Location = new System.Drawing.Point(388, 366);
+            this.btnExec.Name = "btnExec";
+            this.btnExec.Size = new System.Drawing.Size(105, 30);
+            this.btnExec.TabIndex = 8;
+            this.btnExec.Text = "Executer";
+            this.btnExec.UseVisualStyleBackColor = true;
+            this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
+            // 
+            // txtFichierSource
+            // 
+            this.txtFichierSource.Enabled = false;
+            this.txtFichierSource.Location = new System.Drawing.Point(166, 63);
+            this.txtFichierSource.Name = "txtFichierSource";
+            this.txtFichierSource.Size = new System.Drawing.Size(217, 20);
+            this.txtFichierSource.TabIndex = 2;
+            this.txtFichierSource.TextChanged += new System.EventHandler(this.txtFichierSource_TextChanged);
+            // 
+            // txtNomBdd
+            // 
+            this.txtNomBdd.Location = new System.Drawing.Point(200, 217);
+            this.txtNomBdd.Name = "txtNomBdd";
+            this.txtNomBdd.Size = new System.Drawing.Size(183, 20);
+            this.txtNomBdd.TabIndex = 4;
+            // 
+            // btnOpenFile
+            // 
+            this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnOpenFile.Location = new System.Drawing.Point(416, 63);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(77, 23);
+            this.btnOpenFile.TabIndex = 1;
+            this.btnOpenFile.Text = "Ouvrir";
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(57, 215);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(127, 20);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Nom de la BDD :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(148, 23);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Selection BDD";
+            // 
+            // txtAdrServ
+            // 
+            this.txtAdrServ.BackColor = System.Drawing.SystemColors.Window;
+            this.txtAdrServ.Location = new System.Drawing.Point(200, 151);
+            this.txtAdrServ.Name = "txtAdrServ";
+            this.txtAdrServ.Size = new System.Drawing.Size(183, 20);
+            this.txtAdrServ.TabIndex = 2;
+            this.txtAdrServ.TextChanged += new System.EventHandler(this.txtAdrServ_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(30, 149);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(154, 20);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Adresse du serveur :";
             // 
             // Form1
             // 
