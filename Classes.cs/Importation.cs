@@ -59,16 +59,29 @@ namespace Classes.cs
                     listReglement.Add(values[9]);
 
                 }
+                bool ok; //vérificateur de doublons
                 for (int i = 1; i < listCode.Count; i++)
                 {
                     //Test console
                     /*Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}", listCode[i], listRaisonSoc[i], listCp[i], listVille[i], listTel[i], listFax[i], listActif[i], listReglement[i]);
                     Console.WriteLine("---{0}", i);*/
+                    ok = true;
+                    foreach(string code in listCode)
+                    {
+                        if (listCode[i] == code)
+                        {
+                            this.AjouterErreur(14, "Ligne en double", code, "code", "L'un des codes entreprise à été repéré à plusieurs reprises, les doublond n'ont pas été pris en compte");
+                            ok = false;
+                        }
 
+                    }
+                    if (ok)
+                    {
+                        //Creation de l'objet Entreprise pour l'ajouter à la liste
+                        Entreprise e = new Entreprise(listCode[i], listRaisonSoc[i], listAdr[i], listCp[i], listVille[i], listTel[i], listFax[i], listMail[i], listActif[i], listReglement[i], this);
+                        lesEntreprises.Add(e);
+                    }
 
-                    //Creation de l'objet Entreprise pour l'ajouter à la liste
-                    Entreprise e = new Entreprise(listCode[i], listRaisonSoc[i],listAdr[i], listCp[i], listVille[i], listTel[i], listFax[i],listMail[i], listActif[i], listReglement[i], this);
-                    lesEntreprises.Add(e);
                 }
             }
         }
@@ -107,14 +120,13 @@ namespace Classes.cs
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            //client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network; //On envoie par reseau a un servuer SMTP
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("test21101997@gmail.com", "21101997"); //Authentification pour utiliser l'adresse mail qui va envoyer le mail
 
             MailMessage mm = new MailMessage("test21101997@gmail.com", mailDestination); //adresse d'envoie et de destination
             mm.Subject = "Rapport d'erreur importation BDD Gedimat";             //Objet de l'e-mail
-            mm.Body = "Bonjour vous trouverez ci-joint un document texte contenant l'ensemble des erreurs trouvés durant l'importation des données dansa la base.";   //Contenu de l'e-mail
+            mm.Body = "Bonjour vous trouverez ci-joint un document texte contenant l'ensemble des erreurs trouvés durant l'importation des données dansa la base.\nFichier concerné : "+this.fichierImporte+"\nDate de l'importation : "+this.dateImport.ToString();   //Contenu de l'e-mail
             Attachment attachment = unePJ;      //declaration de la piece jointe
             mm.Attachments.Add(attachment);     //ajout de la pj
 

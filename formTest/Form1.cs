@@ -34,6 +34,7 @@ namespace formTest
             txtMdpBdd.Text = "openpgpwd";
 
             richTxtResultat.Text = ""; //On initialise a vide pour pouvoir utiliser += par la suite
+            richTxtProgression.Text = ""; //meme chose
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -70,6 +71,8 @@ namespace formTest
         
         private void btnExec_Click(object sender, EventArgs e)
         {
+            int cpt=0; //compteur qui sert a compter le nb de lignes en temps reel pour le feedback utilisateur
+
             //--------------------------------------------------------
             // Verifications des champs remplis par l'utilisateur
             //--------------------------------------------------------
@@ -162,6 +165,7 @@ namespace formTest
                     import = new Importation(DateTime.Now, txtFichierSource.Text);
 
                     List<Entreprise> listEntreprises = import.GetLesEntreprises();
+
                     foreach (Entreprise ent in listEntreprises)
                     {
                         //On effectue les vérifications des champs avant leur insertion dans la base de données
@@ -179,7 +183,9 @@ namespace formTest
                         //richTxtResultat.Text = t; //Debug
                         dbcmd.CommandText = t;
                         dbcmd.ExecuteNonQuery();
-                        
+
+                        richTxtProgression.Text += "Ligne numero "+cpt+" insérée !\n"; //Feedback utilisateur avec le compteur de lignes
+                        cpt++;
                     }
                     //Feedback utilisateur
                     richTxtResultat.Text += "Insertions dans la base réussie !\n";
@@ -222,6 +228,9 @@ namespace formTest
                     richTxtResultat.Text += "Rapport d'erreur envoyé par mail !\n";
 
                     #endregion
+
+                    //Feedback
+                    richTxtResultat.Text += "\nNombre de lignes insérées : "+cpt+"\nNombre d'erreurs rencontrées : "+import.GetLesErreurs().Count;
                 }
                 catch (Exception er)
                 {

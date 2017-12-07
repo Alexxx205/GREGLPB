@@ -50,6 +50,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtAdrServ = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.richTxtProgression = new System.Windows.Forms.RichTextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -58,29 +60,31 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 30);
+            this.label6.Location = new System.Drawing.Point(6, 252);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(153, 20);
+            this.label6.Size = new System.Drawing.Size(188, 20);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Resultat de l\'import :";
+            this.label6.Text = "Resultat de l\'importation :";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.richTxtProgression);
             this.groupBox1.Controls.Add(this.richTxtResultat);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(15, 428);
+            this.groupBox1.Location = new System.Drawing.Point(537, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(499, 132);
+            this.groupBox1.Size = new System.Drawing.Size(497, 402);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Resultat import";
+            this.groupBox1.Text = "Importation";
             // 
             // richTxtResultat
             // 
             this.richTxtResultat.Enabled = false;
-            this.richTxtResultat.Location = new System.Drawing.Point(10, 54);
+            this.richTxtResultat.Location = new System.Drawing.Point(10, 275);
             this.richTxtResultat.Name = "richTxtResultat";
-            this.richTxtResultat.Size = new System.Drawing.Size(470, 68);
+            this.richTxtResultat.Size = new System.Drawing.Size(481, 121);
             this.richTxtResultat.TabIndex = 12;
             this.richTxtResultat.Text = "";
             // 
@@ -110,7 +114,7 @@
             this.groupBox2.Size = new System.Drawing.Size(499, 402);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Importation";
+            this.groupBox2.Text = "Options d\'importation";
             // 
             // txtPortServ
             // 
@@ -287,12 +291,30 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Adresse du serveur :";
             // 
+            // richTxtProgression
+            // 
+            this.richTxtProgression.Location = new System.Drawing.Point(10, 39);
+            this.richTxtProgression.Name = "richTxtProgression";
+            this.richTxtProgression.Size = new System.Drawing.Size(481, 205);
+            this.richTxtProgression.TabIndex = 13;
+            this.richTxtProgression.Text = "";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 16);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(101, 20);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Progression :";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(533, 572);
+            this.ClientSize = new System.Drawing.Size(1046, 430);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -328,6 +350,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtPortServ;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox richTxtProgression;
     }
 }
 
